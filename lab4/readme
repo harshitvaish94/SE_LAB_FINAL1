@@ -1,1 +1,116 @@
-
+Brick Breaker Game
+A Python-based Brick Breaker game built with Pygame. This project
+was completed as part of a software engineering lab assignment. The work
+focused on correcting collision behavior, adding a proper end-game
+state, implementing difficulty selection and replay, and adding gameplay
+sound effects.
+Student Details
+- Name: Harshit Vaish
+- SRN: PES1UG24AM116
+- GitHub repository:
+  https://github.com/harshitvaish94/49_brick-breaker
+Project Overview
+The player controls a paddle to keep the ball in play and destroy the
+bricks. The game tracks the player's score and remaining lives. The
+updated version adds clearer collision responses, win/loss handling,
+selectable difficulty levels, replay through a menu, and sound effects
+for important game events.
+Features and Fixes
+1. Directional Collision Detection
+Problem: The original collision behavior reversed the ball's
+vertical velocity for collisions regardless of which side of a paddle or
+brick was hit. A side collision could therefore produce an incorrect
+bounce.
+Fix: The collision logic checks the ball's previous position
+relative to the target rectangle and uses the collision side to decide
+whether to reverse horizontal velocity (vx) or vertical velocity
+(vy). When the previous position does not clearly identify the side,
+the logic compares overlap amounts and resolves the collision along the
+smaller-overlap axis.
+Result: Side hits can reverse horizontal movement, while top/bottom
+hits reverse vertical movement, making collisions more consistent.
+2. Game Over, Win State, and Final Score
+Problem: The game needed to handle the end of a round clearly
+instead of continuing gameplay or closing immediately.
+Fix: The game engine tracks game_over and result state. The
+player loses when all lives are gone, and wins when all bricks have been
+destroyed. Once the game ends, updates stop and an overlay displays the
+outcome and final score.
+Result: The end screen displays GAME OVER or YOU WIN!, the final
+score, and an instruction to press a key to return to the menu.
+3. Difficulty Selection and Replay
+Fix: A menu lets the player choose Easy, Medium, or Hard. The
+selected difficulty changes the ball speed and number of brick rows. A
+new game engine is created for each new round, and a key press after the
+end screen returns the player to the menu.
+Controls: - 1 --- Easy - 2 --- Medium - 3 --- Hard - Esc ---
+Quit - Arrow keys or A/D --- Move the paddle (depending on the
+active input handling)
+Result: Players can select a difficulty and start another round
+without restarting the application.
+4. Gameplay Sound Effects
+Fix: Sound effects were added for brick hits, paddle hits, and
+losing a life. Short sounds are generated in code rather than relying on
+separate sound files. The sound helper checks whether Pygame's mixer is
+initialized before attempting playback.
+Result: The game provides audio feedback for these gameplay events,
+while avoiding a crash if the audio mixer is unavailable.
+5. Ignore Python Cache Files
+A .gitignore entry was added to avoid tracking generated Python cache
+files, keeping the repository focused on source and project files.
+Project Structure
+49_brick-breaker/
+├── game/
+│   ├── ball.py
+│   ├── brick.py
+│   ├── game_engine.py
+│   └── paddle.py
+├── .gitignore
+├── main.py
+├── README.md
+└── requirements.txt
+Requirements
+- Python 3
+- Packages listed in requirements.txt (including Pygame)
+Setup and Run
+Open a terminal in the project root --- the folder containing main.py
+and requirements.txt --- and run:
+python -m pip install -r requirements.txt
+python main.py
+If your system uses py to launch Python on Windows, you can use:
+py -m pip install -r requirements.txt
+py main.py
+Testing Checklist
+Use these checks to verify the game behavior:
+- [ ] The game launches without a Python import or file-path error.
+- [ ] The ball bounces off the left, right, and top walls.
+- [ ] Paddle collisions redirect the ball and the ball does not pass
+  through the paddle during normal play.
+- [ ] Brick collisions destroy a brick and increase the score.
+- [ ] A side collision produces a horizontal bounce when appropriate.
+- [ ] Losing all lives displays GAME OVER and the final score.
+- [ ] Destroying all bricks displays YOU WIN! and the final score.
+- [ ] The game stops updating after the end state.
+- [ ] Pressing a key after the end screen returns to the difficulty
+  menu.
+- [ ] Easy, Medium, and Hard can each be selected.
+- [ ] Sound effects play for brick hits, paddle hits, and lost lives
+  when audio is available.
+- [ ] Esc exits the game.
+Commit Summary
+The repository history includes the following implementation and cleanup
+changes:
+- Fix ball collision detection --- Resolves collisions according
+  to the side of the brick or paddle that the ball hits.
+- Add game over screen and final score --- Adds win/loss states,
+  an end-screen overlay, and final-score display.
+- Add replay and difficulty selection --- Adds Easy, Medium, and
+  Hard modes and a menu flow for replaying.
+- Add sound effects for game events --- Adds sound feedback for
+  brick hits, paddle hits, and lost lives.
+- Ignore Python cache files --- Keeps generated Python cache files
+  out of version control.
+Repository
+GitHub: https://github.com/harshitvaish94/49_brick-breaker
+This repository is a fork of the starter project from
+SETAPESU26/49_brick-breaker.
